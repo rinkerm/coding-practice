@@ -1,0 +1,7 @@
+--LANGUAGE = MySQL
+SELECT ROUND(LONG_W,4)
+FROM STATION join
+	(SELECT MIN(LAT_N) as maxlat
+	FROM STATION
+	WHERE LAT_N > 38.7780) m 
+on m.maxlat = LAT_N

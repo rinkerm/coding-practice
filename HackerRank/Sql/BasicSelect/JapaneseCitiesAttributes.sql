@@ -1,0 +1,4 @@
+--LANGUAGE = MySQL
+SELECT *
+from CITY
+where COUNTRYCODE = 'JPN'

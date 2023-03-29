@@ -1,0 +1,3 @@
+--LANGUAGE = MySQL
+SELECT *
+from CITY
