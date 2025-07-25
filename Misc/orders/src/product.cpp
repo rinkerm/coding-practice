@@ -1,23 +1,37 @@
 #include "product.h"
+#include <stdexcept>
 
+Product::Product(const std::string& name, double price) 
+    : name_(name), price_(price) {
+    if (price < 0) {
+        throw std::invalid_argument("Price cannot be negative");
+    }
+}
 
-bool product::equals(const product &p) 
-{
-	return this->price() == p.price() && this->name() == p.name();
+bool Product::operator==(const Product& other) const {
+    return (name_ == other.name_) && isEqual(price_, other.price_);
 }
-bool product::greater_than(const product &p)
-{
-	return this->price()>p.price();
+
+bool Product::operator!=(const Product& other) const {
+    return !(*this == other);
 }
-bool product::greater_than_equal(const product &p)
-{
-	return this->price()>=p.price();
+
+bool Product::operator<(const Product& other) const {
+    return price_ < other.price_;
 }
-bool product::less_than(const product &p)
-{
-	return this->price()<p.price();
+
+bool Product::operator<=(const Product& other) const {
+    return (*this < other) || (*this == other);
 }
-bool product::less_than_equal(const product &p)
-{
-	return this->price()<=p.price();
+
+bool Product::operator>(const Product& other) const {
+    return other < *this;
+}
+
+bool Product::operator>=(const Product& other) const {
+    return (*this > other) || (*this == other);
+}
+
+bool Product::isEqual(double a, double b, double epsilon) {
+    return std::abs(a - b) < epsilon;
 }

@@ -1,23 +1,44 @@
 #ifndef PRODUCT_H
 #define PRODUCT_H
+
 #include <string>
-class product {
+#include <cmath>
 
-	const std::string _name;
-	const double _price;
+/**
+ * @class Product
+ * @brief Represents a product with name and price
+ */
+class Product {
+private:
+    std::string name_;   // Removed 'const'
+    double price_;       // Removed 'const'
 
-	public:
+public:
+    /**
+     * @brief Constructor for Product
+     * @param name Product Name
+     * @param price Product Price
+     */
+    Product(const std::string& name, double price);
+    
+    Product(const Product& other) = default;
+    Product(Product&& other) = default;
+    Product& operator=(const Product& other) = default;  // Now allowed
+    Product& operator=(Product&& other) = default;       // Now allowed
+    ~Product() = default;
+    
+    const std::string& name() const { return name_; }
+    double price() const { return price_; }
+    
+    bool operator==(const Product& other) const;
+    bool operator!=(const Product& other) const;
+    bool operator<(const Product& other) const;
+    bool operator<=(const Product& other) const;
+    bool operator>(const Product& other) const;
+    bool operator>=(const Product& other) const;
 
-		product(const std::string &n, double p) :
-			_name(n), _price(p) {}
-	
-		const std::string & name() const { return _name; }
-		double price() const { return _price; }
-		bool equals(const product &p);
-		bool greater_than(const product &p);
-		bool greater_than_equal(const product &p);
-		bool less_than(const product &p);
-		bool less_than_equal(const product &p);
-
+private:
+    static bool isEqual(double a, double b, double epsilon = 1e-9);
 };
-#endif
+
+#endif // PRODUCT_H
